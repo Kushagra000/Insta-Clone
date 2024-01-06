@@ -1,9 +1,10 @@
-import { Avatar, Box, Flex, Link, Tooltip } from '@chakra-ui/react'
+import { Avatar, Box, Button, Flex, Link, Tooltip } from '@chakra-ui/react'
 import {Link as RouterLink} from 'react-router-dom';
 import React from 'react'
 import {AiFillHome} from 'react-icons/ai'
 import {BiLogOut} from 'react-icons/bi'
 import { CreatePostLogo, InstagramLogo, InstagramMobileLogo, NotificationsLogo, SearchLogo } from '../../assests/constant';
+import useLogout from '../../hooks/useLogout'
 
 const Sidebar = () => {
   const sidebarItems=[
@@ -29,7 +30,8 @@ const Sidebar = () => {
       text:"Profile",
       link:"/asaprogrammer"
     }
-  ]
+  ];
+  const {handleLogout,isLoggingOut}=useLogout()
   return (
     <Box
         height={'100vh'}
@@ -76,9 +78,13 @@ const Sidebar = () => {
             justifyContent={{base:'center',md:'flex-start'}}
             >
             {item.icon}
-            <Box display={{base:'none',md:'block'}}>
+            <Button display={{base:'none',md:'block'}}
+              variant={'ghost'}
+              _hover={{bg:'transparent'}}
+              isLoading={isLoggingOut}            
+            >
             {item.text}
-            </Box>
+            </Button>
             </Link>
           </Tooltip>
         ))}
