@@ -8,10 +8,10 @@ const Navbar = () => {
         <Flex w={'full'} justifyContent={{base:'center', sm:'space-between'}} alignItems={'center'}>
             <Image src='/logo.png' h={20} display={{base:'none',sm:'block'}} cursor={'pointer'}/>
             <Flex gap={4}>
-                <Link to='.auth'>
+                <Link to='/auth'>
                     <Button colorScheme={'blue'} size={'sm'}>Log In</Button>
                 </Link>
-                <Link to='.auth'>
+                <Link to='/auth'>
                     <Button variant={'outline'} size={'sm'}>Sign Up</Button>
                 </Link>
 

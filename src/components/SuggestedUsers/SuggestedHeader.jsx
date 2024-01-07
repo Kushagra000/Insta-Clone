@@ -1,4 +1,4 @@
-import { Avatar, Flex, Link, Text } from '@chakra-ui/react'
+import { Avatar, Button, Flex, Link, Text } from '@chakra-ui/react'
 import React from 'react'
 import {Link as RouterLink} from 'react-router-dom'
 const SuggestedHeader = () => {
@@ -8,16 +8,17 @@ const SuggestedHeader = () => {
             <Avatar name='As a Programmer' size={'lg'} src='/profilepic.png'/>
             <Text fontSize={12} fontWeight={'bold'}>asaprogrammer_</Text>
         </Flex>
-        <Link as={RouterLink}
-        to={'/auth'}
+        <Button
+        size={'xs'}
+        background={'transparent'}
+        _hover={{background:'transparent'}}
         fontSize={14}
         fontWeight={'medium'}
         color={'blue.400'}
-        style={{textDecoration:'none'}}
         cursor={'pointer'}
         >
         Log out
-        </Link>
+        </Button>
     </Flex>
   )
 }

@@ -58,6 +58,7 @@ const SignUp = () => {
         {error && (
             <Alert status= 'error' fontSize={13} p={2} borderRadius={4}>
                 <AlertIcon fontSize={12}/>
+                {error.message}
             </Alert>
         )}
         <Button width={"full"} colorScheme={'blue'} size={"sm"} fontSize={14} 
