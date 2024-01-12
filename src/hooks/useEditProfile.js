@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import useAuthStore from '../store/authStore'
 import useShowToast from './useShowToast'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
@@ -15,7 +15,7 @@ const useEditProfile = () => {
   const showToast = useShowToast()
 
   const editProfile = async(inputs,selectedFile)=>{
-    if(isUpdating || authUser) return
+    if(isUpdating || !authUser) return
     setIsUpdating(true)
 
     const storageRef = ref(storage,`profilePics/${authUser.uid}`)
@@ -33,7 +33,7 @@ const useEditProfile = () => {
             fullName:inputs.fullName || authUser.fullName,
             username:inputs.username || authUser.username,
             bio: inputs.bio || authUser.bio,
-            profilePic: URL || authUser.profilePic,
+            profilePicURL: URL || authUser.profilePicURL,
             
         }
 
@@ -41,10 +41,12 @@ const useEditProfile = () => {
         localStorage.setItem("user-info",JSON.stringify(updatedUser))
         setAuthUser(updatedUser)
         setUserProfile(updatedUser)
+        showToast("Success","Profile updated successfully","success")
     } catch (error) {
         showToast("Error",error.message,"error")
     }
   }
+  return {editProfile,isUpdating}
 }
 
 export default useEditProfile
