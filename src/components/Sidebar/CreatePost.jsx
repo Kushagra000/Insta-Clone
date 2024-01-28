@@ -30,7 +30,7 @@ const CreatePost = () => {
 		} catch (error) {
 			showToast("error", error.message, "error")
 		}
-	}
+	};
 
 	return (
 		<>
@@ -105,11 +105,12 @@ function useCreatePost(){
 	const showToast = useShowToast();
 	const [isLoading ,setIsLoading] = useState(false);
 	const authUser = useAuthStore((store)=>store.user);
-	const createPost =usePostStore(state=>state.createPost)
-	const addPost = useUserProfileStore(state=>state.addPost)
+	const createPost =usePostStore((state)=>state.createPost)
+	const addPost = useUserProfileStore((state)=>state.addPost)
 	const {pathname}  =useLocation()
 
 	const handleCreatePost = async(selectedFile, caption)=>{
+		if(isLoading) return;
 		if(!selectedFile) throw new Error('Please select a image');
 		setIsLoading(true);
 		const newPost = {
@@ -118,11 +119,12 @@ function useCreatePost(){
 			comments:[],
 			createdAt: Date.now(),
 			createdBy:authUser.uid,
-			}
+			};
 		try {
 			const postDocRef = await addDoc(collection(firestore,"posts"),newPost);
 			const userDocRef = doc(firestore,"users",authUser.uid);
 			const imageRef = ref(storage,`posts/${postDocRef.id}`)
+
 			await updateDoc(userDocRef,{posts:arrayUnion(postDocRef.id)});
 			await uploadString(imageRef,selectedFile,"data_url");
 			const downloadURL = await getDownloadURL(imageRef);

@@ -1,12 +1,31 @@
-import { Flex,ModalContent,ModalCloseButton ,ModalBody, GridItem, Modal, ModalOverlay, Image, Text, useDisclosure, Box, Avatar, Divider, VStack } from '@chakra-ui/react'
+import { Flex,ModalContent,ModalCloseButton ,ModalBody, GridItem, Modal, ModalOverlay, Image, Text, useDisclosure, Box, Avatar, Divider, VStack, Button } from '@chakra-ui/react'
 import {AiFillHeart } from 'react-icons/ai'
 import {FaComment} from 'react-icons/fa'
 import {MdDelete} from 'react-icons/md'
 import Comment from '../Comment/Comment'
 import PostFooter from '../FeedPosts/PostFooter'
+import useUserProfileStore from '../../store/userProfileStore'
+import useAuthStore from '../../store/authStore'
+import useShowToast from '../../hooks/useShowToast'
+import { useState } from 'react'
 
-const ProfilePost = ({img}) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+const ProfilePost = ({post}) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const userProfile= useUserProfileStore((state)=>state.userProfile);
+  const authUser = useAuthStore((state)=>state.user)
+  const showToast = useShowToast()
+  const [isDeleting, setIsDeleting] = useState(false)
+
+  const handleDeletePost = async () =>{
+    if(!window.confirm("Are you sure you want to delete the post?")) return;
+    try {
+      const 
+    } catch (error) {
+      showToast("Error",error.message,"error")
+    }
+  }
+
+
   return (
     <>
 
@@ -37,18 +56,18 @@ const ProfilePost = ({img}) => {
         alignItems={'center'} justifyContent={'center'} gap={50}>
         <Flex>
           <AiFillHeart size={20}/>
-          <Text fontWeight={'bold'} ml={2}>7</Text>
+          <Text fontWeight={'bold'} ml={2}>{post.likes.length}</Text>
         </Flex>
         <Flex>
           <FaComment size={20}/>
-          <Text fontWeight={'bold'} ml={2}>4</Text>
+          <Text fontWeight={'bold'} ml={2}>{post.comments.length}</Text>
         </Flex>
 
       </Flex>
 
     </Flex>
 
-    <Image src={img} alt='Profile post' w={'100%'} h={'100%'} objectFit={'cover'}/>
+    <Image src={post.imageURL} alt='Profile post' w={'100%'} h={'100%'} objectFit={'cover'}/>
     </GridItem>
 
     <Modal isOpen={isOpen} onClose={onClose}
@@ -62,22 +81,24 @@ const ProfilePost = ({img}) => {
           bg={'black'}
           pb={5}
           >
-            <Flex gap={4} w={{base:'90%',sm:'70%',md:'full'}} mx={'auto'}>
-            <Box borderRadius={4} overflow={'hidden'} border={'1px solid'} borderColor={'whiteAlpha.300'} flex={1.5}>
-              <Image src={img} alt='Post'/>
-            </Box>
+            <Flex gap={4} w={{base:'90%',sm:'70%',md:'full'}} mx={'auto'} maxH={"90vh"} minH={"50vh"}>
+            <Flex borderRadius={4} overflow={'hidden'} border={'1px solid'} borderColor={'whiteAlpha.300'} flex={1.5} justifyContent={'center'} alignItems={'center'}>
+              <Image src={post.imageURL} alt='Post'/>
+            </Flex>
             <Flex flex={1} flexDirection={'column'} px={10} display={{base:'none',md:'flex'}}>
               <Flex alignItems={'center'} justifyContent={'space-between'}>
               <Flex alignItems={'center'} gap={4}>
-                <Avatar src='/profilepic.png' size={'sm'} name='Kushagra Awasthi'/>
+                <Avatar src={userProfile.profilePicURL} size={'sm'} name={userProfile.username}/>
                 <Text fontWeight={'bold'} fontSize={12}>
-                  _awa_sthi_
+                  {userProfile.username}
                 </Text>
               </Flex>
-              <Box
-               _hover={{color:'red.600',bg:'whiteAlpha.300'}} borderRadius={4} p={1}>
+              {authUser?.uid=== userProfile.uid &&(
+                <Button
+                size={"sm"} bg={"transparent"} _hover={{color:'red.600',bg:'whiteAlpha.300'}} borderRadius={4} 
+                p={1} onClick={handleDeletePost}>
                 <MdDelete size={20} cursor='pointer'/>
-              </Box>
+              </Button>)}
               </Flex>
               <Divider my={4} bg={'gray.500'}/>
               <VStack w={'full'} alignItems={'start'} maxH={'350px'} overflowY={'auto'}>
@@ -92,84 +113,6 @@ const ProfilePost = ({img}) => {
                   username='Kashish1812_'
                   profilePic='/img1.png'
                   text={'scnd cmnt'}
-                />
-                <Comment
-                  createdAt='1d ago'
-                  username='Shashi_s21'
-                  profilePic='/img2.png'
-                  text={'Third cmnt'}
-                />
-                <Comment
-                  createdAt='1d ago'
-                  username='Shashi_s21'
-                  profilePic='/img2.png'
-                  text={'Third cmnt'}
-                />
-                <Comment
-                  createdAt='1d ago'
-                  username='Shashi_s21'
-                  profilePic='/img2.png'
-                  text={'Third cmnt'}
-                />
-                <Comment
-                  createdAt='1d ago'
-                  username='Shashi_s21'
-                  profilePic='/img2.png'
-                  text={'Third cmnt'}
-                />
-                <Comment
-                  createdAt='1d ago'
-                  username='Shashi_s21'
-                  profilePic='/img2.png'
-                  text={'Third cmnt'}
-                />
-                <Comment
-                  createdAt='1d ago'
-                  username='Shashi_s21'
-                  profilePic='/img2.png'
-                  text={'Third cmnt'}
-                />
-                <Comment
-                  createdAt='1d ago'
-                  username='Shashi_s21'
-                  profilePic='/img2.png'
-                  text={'Third cmnt'}
-                />
-                <Comment
-                  createdAt='1d ago'
-                  username='Shashi_s21'
-                  profilePic='/img2.png'
-                  text={'Third cmnt'}
-                />
-                <Comment
-                  createdAt='1d ago'
-                  username='Shashi_s21'
-                  profilePic='/img2.png'
-                  text={'Third cmnt'}
-                />
-                <Comment
-                  createdAt='1d ago'
-                  username='Shashi_s21'
-                  profilePic='/img2.png'
-                  text={'Third cmnt'}
-                />
-                <Comment
-                  createdAt='1d ago'
-                  username='Shashi_s21'
-                  profilePic='/img2.png'
-                  text={'Third cmnt'}
-                />
-                <Comment
-                  createdAt='1d ago'
-                  username='Shashi_s21'
-                  profilePic='/img2.png'
-                  text={'Third cmnt'}
-                />
-                <Comment
-                  createdAt='1d ago'
-                  username='Shashi_s21'
-                  profilePic='/img2.png'
-                  text={'Third cmnt'}
                 />
               </VStack>
               <Divider my={4} bg={'gray.800'}/>
