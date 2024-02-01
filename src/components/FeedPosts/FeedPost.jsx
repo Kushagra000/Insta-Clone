@@ -12,6 +12,8 @@ const FeedPost = ({post}) => {
         <Box my={2}
         borderRadius={4}
         overflow={'hidden'}
+        alignItems={'center'}
+        justifyContent={'center'}
         ><Image src={post.imageURL} alt={"Feed Post Img"}/></Box>
         <PostFooter post={post} creatorProfile= {userProfile}/>
     </>
