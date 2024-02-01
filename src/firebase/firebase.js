@@ -4,13 +4,13 @@ import {getAuth} from 'firebase/auth';
 import {getFirestore} from 'firebase/firestore';
 import {getStorage} from 'firebase/storage';
 const firebaseConfig = {
-  apiKey: "AIzaSyDzzsoKrRzUt3WBLXLaOhp6bBBWfA6hWoI",
-  authDomain: "insta-clone-161e5.firebaseapp.com",
-  projectId: "insta-clone-161e5",
-  storageBucket: "insta-clone-161e5.appspot.com",
-  messagingSenderId: "137740741545",
-  appId: "1:137740741545:web:afa794a3c757741c4772b8",
-  measurementId: "G-904P51E63D"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
@@ -18,3 +18,21 @@ const auth =getAuth(app);
 const firestore = getFirestore(app);
 const storage = getStorage(app);
 export {app, auth, firestore, storage};
+
+
+
+// firestore databade rules
+
+// This rule allows anyone with your Firestore database reference to view, edit,
+    // and delete all data in your Firestore database. It is useful for getting
+    // started, but it is configured to expire after 30 days because it
+    // leaves your app open to attackers. At that time, all client
+    // requests to your Firestore database will be denied.
+    //
+    // Make sure to write security rules for your app before that time, or else
+    // all client requests to your Firestore database will be denied until you Update
+    // your rules
+
+    // rules are from below
+    // match /{document=**} {
+    //   allow read, write: if request.time < timestamp.date(2024, 2, 5);

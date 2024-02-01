@@ -2,6 +2,7 @@ import { Avatar, Box, Button, Flex, Skeleton, SkeletonCircle, Text } from '@chak
 import React from 'react'
 import { Link } from 'react-router-dom'
 import useFollowUser from '../../hooks/useFollowUser'
+import {timeAgo} from '../../utils/timeAgo'
 
 const PostHeader = ({post , creatorProfile}) => {
   const {handleFollowUser,isFollowing ,isUpdating}=useFollowUser(post.createdBy);
@@ -21,7 +22,7 @@ const PostHeader = ({post , creatorProfile}) => {
               <Skeleton w={'100px'} height={'10px'}/>
             )}
             <Box color={'gray.500'}>
-            · 1w
+            · {timeAgo(post.createdAt)}
             </Box>
             
             </Flex>
