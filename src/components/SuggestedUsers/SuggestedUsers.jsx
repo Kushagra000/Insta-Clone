@@ -7,7 +7,6 @@ import useGetSuggestedUsers from '../../hooks/useGetSuggestedUsers'
 const SuggestedUsers = () => {
    const {isLoading, suggestedUsers} =  useGetSuggestedUsers();
    if(isLoading) return null;
-   console.log("Hello")
    return (
     <VStack py={8} px={6} gap={4}>
     <SuggestedHeader/>
